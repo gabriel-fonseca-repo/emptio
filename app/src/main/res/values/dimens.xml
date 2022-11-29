@@ -5,4 +5,7 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="bordas_tela">20dp</dimen>
     <dimen name="espacamento_logo">50dp</dimen>
+    <dimen name="imageview_produto_dimens">120dp</dimen>
+    <dimen name="textview_produto_descricao_dimens">15sp</dimen>
+    <dimen name="textview_produto_titulo_dimens">20sp</dimen>
 </resources>

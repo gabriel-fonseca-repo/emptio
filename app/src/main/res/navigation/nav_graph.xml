@@ -14,6 +14,9 @@
         <action
             android:id="@+id/login_to_cadastro"
             app:destination="@id/CadastroFragment" />
+        <action
+            android:id="@+id/login_to_loja"
+            app:destination="@id/LojaFragment" />
     </fragment>
     <fragment
         android:id="@+id/CadastroFragment"
@@ -25,4 +28,9 @@
             android:id="@+id/cadastro_to_login"
             app:destination="@id/LoginFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/LojaFragment"
+        android:name="com.gabriel.augusto.emptio.LojaFragment"
+        android:label="fragment_loja"
+        tools:layout="@layout/fragment_loja" />
 </navigation>

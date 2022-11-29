@@ -1,8 +1,14 @@
 package com.gabriel.augusto.emptio.entidades;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
+
+import com.gabriel.augusto.emptio.dto.ProdutoQuantidade;
+
+import java.util.List;
 
 @Entity
 public class Usuario {
@@ -19,6 +25,10 @@ public class Usuario {
     @ColumnInfo(name = "senha")
     private String senha;
 
+    @Ignore
+    private List<ProdutoQuantidade> sacola;
+
+    @NonNull
     @Override
     public String toString() {
         return "Usuario{" +
@@ -59,5 +69,13 @@ public class Usuario {
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    public List<ProdutoQuantidade> getSacola() {
+        return sacola;
+    }
+
+    public void setSacola(List<ProdutoQuantidade> sacola) {
+        this.sacola = sacola;
     }
 }

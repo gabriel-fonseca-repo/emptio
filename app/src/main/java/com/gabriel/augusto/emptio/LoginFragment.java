@@ -1,7 +1,5 @@
 package com.gabriel.augusto.emptio;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,14 +10,18 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gabriel.augusto.emptio.database.Db;
 import com.gabriel.augusto.emptio.databinding.FragmentLoginBinding;
+import com.gabriel.augusto.emptio.entidades.Produto;
 import com.gabriel.augusto.emptio.entidades.Usuario;
+import com.gabriel.augusto.emptio.util.Util;
+import com.github.javafaker.Faker;
+
+import java.util.ArrayList;
 
 public class LoginFragment extends Fragment {
 
+    private static final int[] imgs = {R.drawable.relogio, R.drawable.cellphone, R.drawable.controller, R.drawable.ps5, R.drawable.pincel};
     private FragmentLoginBinding binding;
 
     @Override
@@ -35,6 +37,18 @@ public class LoginFragment extends Fragment {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        Db.getInstancia(requireContext()).produtoDAO().deleteAll();
+
+        Faker fk = new Faker();
+        for (int imagem : imgs) {
+            Produto prd = new Produto();
+            prd.setDescricao(fk.lorem().characters(25));
+            prd.setPreco(fk.number().randomDouble(2, 0, 60));
+            prd.setNome(fk.commerce().productName());
+            prd.setImagem(imagem);
+            Db.getInstancia(requireContext()).produtoDAO().save(prd);
+        }
 
         binding.botaoCadastro.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,8 +67,6 @@ public class LoginFragment extends Fragment {
     }
 
     private void validarLogin() {
-        ObjectMapper mapper = new ObjectMapper();
-
         String emailUsuario = binding.loginEmail.getText().toString();
         String senhaUsuario = binding.loginSenha.getText().toString();
 
@@ -75,19 +87,19 @@ public class LoginFragment extends Fragment {
             return;
         }
 
+        usuario.setSacola(new ArrayList<>());
+
         try {
-            String usuarioJson = mapper.writeValueAsString(usuario);
-            SharedPreferences.Editor prefEdit = getActivity().getSharedPreferences(getString(R.string.usuario_logado_pref), Context.MODE_PRIVATE).edit();
-            prefEdit.putString(getString(R.string.usuario_logado_pref), usuarioJson);
-            prefEdit.apply();
-        } catch (JsonProcessingException e) {
-            String erro = "Erro na serialização do usuário!";
-            System.out.println(erro);
-            Toast.makeText(getContext(), erro, Toast.LENGTH_SHORT).show();
+            Util.setUsuarioLogado(requireContext(), usuario);
+        } catch (Exception e) {
+            Toast.makeText(getContext(), "Erro na serialização do usuário!", Toast.LENGTH_SHORT).show();
             return;
         }
 
         Toast.makeText(getContext(), "Login realizado com sucesso!", Toast.LENGTH_SHORT).show();
+
+        NavHostFragment.findNavController(LoginFragment.this)
+                .navigate(R.id.login_to_loja);
     }
 
     @Override
