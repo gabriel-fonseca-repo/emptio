@@ -14,6 +14,12 @@ public interface ProdutoDAO {
     @Query("SELECT * FROM produto")
     List<Produto> getAll();
 
+    @Query("SELECT * FROM produto WHERE id IN (:listaProdutos)")
+    List<Produto> listById(int[] listaProdutos);
+
+    @Query("SELECT * FROM produto WHERE id NOT IN (:listaProdutos)")
+    List<Produto> listByNotId(Integer[] listaProdutos);
+
     @Insert
     void save(Produto produto);
 

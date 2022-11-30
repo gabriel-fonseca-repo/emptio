@@ -24,17 +24,18 @@ import java.text.DecimalFormatSymbols;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ProdutoAdapter extends ArrayAdapter<Produto> {
+public class ProdutoQuantidadeAdapter extends ArrayAdapter<ProdutoQuantidade> {
 
     private final Context context;
-    private final Produto[] values;
+    private final ProdutoQuantidade[] values;
 
-    public ProdutoAdapter(@NonNull Context context, Produto[] values) {
+    public ProdutoQuantidadeAdapter(@NonNull Context context, ProdutoQuantidade[] values) {
         super(context, R.layout.card_layout, values);
         this.context = context;
         this.values = values;
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -42,31 +43,22 @@ public class ProdutoAdapter extends ArrayAdapter<Produto> {
         @SuppressLint("ViewHolder")
         View cardView = inflater.inflate(R.layout.card_layout, parent, false);
 
-        TextView tituloProduto = (TextView) cardView.findViewById(R.id.titulo_produto);
-        TextView descricaoProduto = (TextView) cardView.findViewById(R.id.descricao_produto);
-        TextView precoProduto = (TextView) cardView.findViewById(R.id.preco_produto);
-        TextView qtdProduto = (TextView) cardView.findViewById(R.id.quantidade_produto);
-        ImageView imagemProduto = (ImageView) cardView.findViewById(R.id.imagem_produto);
+        TextView tituloProduto = cardView.findViewById(R.id.titulo_produto);
+        TextView descricaoProduto = cardView.findViewById(R.id.descricao_produto);
+        TextView precoProduto = cardView.findViewById(R.id.preco_produto);
+        TextView qtdProduto = cardView.findViewById(R.id.quantidade_produto);
+        ImageView imagemProduto = cardView.findViewById(R.id.imagem_produto);
 
-        Button botaoAdicionar = (Button) cardView.findViewById(R.id.botao_adicionar_produto);
-        Button botaoRemover = (Button) cardView.findViewById(R.id.botao_remover_produto);
+        Button botaoAdicionar = cardView.findViewById(R.id.botao_adicionar_produto);
+        Button botaoRemover = cardView.findViewById(R.id.botao_remover_produto);
 
-        DecimalFormatSymbols symbols = new DecimalFormatSymbols();
-        symbols.setGroupingSeparator('.');
-        symbols.setDecimalSeparator(',');
-
-        DecimalFormat decimalFormat = new DecimalFormat("R$ #,###.00", symbols);
-
-        Produto val = values[position];
-        tituloProduto.setText(val.getNome());
-        descricaoProduto.setText(val.getDescricao());
-        precoProduto.setText(decimalFormat.format(val.getPreco()));
-        imagemProduto.setImageResource(val.getImagem());
-
-        ProdutoQuantidade produtoQuantidade = new ProdutoQuantidade();
-        produtoQuantidade.setProduto(val);
-        produtoQuantidade.setQuantidade(0);
-        cardView.setTag(produtoQuantidade);
+        ProdutoQuantidade val = values[position];
+        tituloProduto.setText(val.getProduto().getNome());
+        descricaoProduto.setText(val.getProduto().getDescricao());
+        precoProduto.setText(Util.dinheiro(val.getProduto().getPreco()));
+        qtdProduto.setText(Integer.toString(val.getQuantidade()));
+        imagemProduto.setImageResource(val.getProduto().getImagem());
+        cardView.setTag(val);
 
         botaoAdicionar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,14 +70,14 @@ public class ProdutoAdapter extends ArrayAdapter<Produto> {
                     List<Integer> itensEscolhidos = usuarioLogado.getSacola().stream().map(ProdutoQuantidade::getProduto).map(Produto::getId).collect(Collectors.toList());
 
                     if (itensEscolhidos.contains(prodQnt.getProduto().getId())) {
-                        prodQnt.setQuantidade(prodQnt.getQuantidade() + 1);
+                        int qtdAtual = prodQnt.getQuantidade();
+                        prodQnt.setQuantidade(qtdAtual + 1);
+                        int indexOfProdutoQuantidadeById = usuarioLogado.indexOfProdutoQuantidadeById(prodQnt.getProduto().getId());
+                        usuarioLogado.getSacola().get(indexOfProdutoQuantidadeById).setQuantidade(qtdAtual + 1);
                     } else {
-                        System.out.println("adicionando mais um produto");
                         prodQnt.setQuantidade(1);
                         usuarioLogado.getSacola().add(prodQnt);
                     }
-
-                    System.out.println(usuarioLogado.getSacola());
 
                     Util.setUsuarioLogado(context, usuarioLogado);
 
@@ -107,7 +99,10 @@ public class ProdutoAdapter extends ArrayAdapter<Produto> {
 
                     if (itensEscolhidos.contains(prodQnt.getProduto().getId())) {
                         if (prodQnt.getQuantidade() > 0) {
-                            prodQnt.setQuantidade(prodQnt.getQuantidade() - 1);
+                            prodQnt.setQuantidade(-1);
+                        }
+                        if (prodQnt.getQuantidade() == 0) {
+                            usuarioLogado.getSacola().removeIf(prodQnt1 -> prodQnt.getProduto().getId() == prodQnt1.getProduto().getId());
                         }
                     }
 

@@ -32,5 +32,14 @@
         android:id="@+id/LojaFragment"
         android:name="com.gabriel.augusto.emptio.LojaFragment"
         android:label="fragment_loja"
-        tools:layout="@layout/fragment_loja" />
+        tools:layout="@layout/fragment_loja" >
+        <action
+            android:id="@+id/loja_to_checkout"
+            app:destination="@id/checkoutFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/checkoutFragment"
+        android:name="com.gabriel.augusto.emptio.CheckoutFragment"
+        android:label="fragment_checkout"
+        tools:layout="@layout/fragment_checkout" />
 </navigation>

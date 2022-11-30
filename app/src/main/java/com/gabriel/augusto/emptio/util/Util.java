@@ -8,6 +8,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gabriel.augusto.emptio.R;
 import com.gabriel.augusto.emptio.entidades.Usuario;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+
 public class Util {
 
     public static Usuario getUsuarioLogado(Context context) throws Exception {
@@ -24,4 +27,13 @@ public class Util {
         prefEdit.putString(context.getString(R.string.usuario_logado_pref), usuarioJson);
         prefEdit.apply();
     }
+
+    public static String dinheiro(double toConvert) {
+        DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+        symbols.setGroupingSeparator('.');
+        symbols.setDecimalSeparator(',');
+        DecimalFormat decimalFormat = new DecimalFormat("R$ #,###.00", symbols);
+        return decimalFormat.format(toConvert);
+    }
+
 }

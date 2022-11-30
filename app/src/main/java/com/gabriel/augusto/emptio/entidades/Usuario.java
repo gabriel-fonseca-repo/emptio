@@ -39,6 +39,15 @@ public class Usuario {
                 '}';
     }
 
+    public int indexOfProdutoQuantidadeById(int id) {
+        for (int i = 0; i < getSacola().size(); i++) {
+            if (getSacola().get(i).getProduto().getId() == id) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     public int getId() {
         return id;
     }

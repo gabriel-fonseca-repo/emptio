@@ -76,7 +76,7 @@
                     android:id="@+id/quantidade_produto"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text=" 0 "
+                    android:text="0"
                     android:textSize="@dimen/textview_produto_titulo_dimens"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
