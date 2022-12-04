@@ -32,14 +32,42 @@
         android:id="@+id/LojaFragment"
         android:name="com.gabriel.augusto.emptio.LojaFragment"
         android:label="fragment_loja"
-        tools:layout="@layout/fragment_loja" >
+        tools:layout="@layout/fragment_loja">
         <action
             android:id="@+id/loja_to_checkout"
-            app:destination="@id/checkoutFragment" />
+            app:destination="@id/CheckoutFragment" />
     </fragment>
     <fragment
-        android:id="@+id/checkoutFragment"
+        android:id="@+id/CheckoutFragment"
         android:name="com.gabriel.augusto.emptio.CheckoutFragment"
         android:label="fragment_checkout"
-        tools:layout="@layout/fragment_checkout" />
+        tools:layout="@layout/fragment_checkout">
+        <action
+            android:id="@+id/checkout_to_cartao"
+            app:destination="@id/CartaoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/CartaoFragment"
+        android:name="com.gabriel.augusto.emptio.CartaoFragment"
+        android:label="fragment_cartao"
+        tools:layout="@layout/fragment_cartao">
+        <action
+            android:id="@+id/cartao_to_cartao_cadastro"
+            app:destination="@id/CartaoCadastroFragment" />
+        <action
+            android:id="@+id/cartao_to_obrigado"
+            app:destination="@id/ObrigadoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/CartaoCadastroFragment"
+        android:name="com.gabriel.augusto.emptio.CartaoCadastroFragment"
+        android:label="CartaoCadastroFragment">
+        <action
+            android:id="@+id/cartao_cadastro_to_cartao"
+            app:destination="@id/CartaoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/ObrigadoFragment"
+        android:name="com.gabriel.augusto.emptio.ObrigadoFragment"
+        android:label="ObrigadoFragment" />
 </navigation>

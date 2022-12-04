@@ -31,5 +31,22 @@
     <string name="checkout">Checkout</string>
     <string name="efetuar_compra">Efetuar compra</string>
     <string name="total">Total:</string>
+    <string name="cadastrar_novo_cartao">Cadastrar novo cartão</string>
+    <string name="minus">-</string>
+    <string name="zero">0</string>
+    <string name="plus">+</string>
+    <string name="currency_placeholder">R$ 0,00</string>
+    <string name="numero_cartao_placeholder">0000 0000 0000 0000</string>
+    <string name="data_cartao_placeholder">00/00</string>
+    <string name="cvc_cartao_placeholder">000</string>
+    <string name="usar">Usar</string>
+    <string name="cadastrar_cartao">Cadastrar cartão</string>
+    <string name="numero_do_cartao_hint">Número do cartão</string>
+    <string name="nome_no_cartao_hint">Nome no cartão</string>
+    <string name="data_de_expiracao_hint">Data de expiração</string>
+    <string name="cvc">CVC</string>
+    <string name="botao_cadastrar_cartao">Cadastrar cartão</string>
+    <string name="nome_usuario">Nome Usuario</string>
+    <string name="obrigado_pela_sua_compra">Obrigado pela sua compra!</string>
 
 </resources>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".CartaoFragment">
+
+
+    <ListView
+        android:id="@+id/lista_cartoes"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight=".90" />
+
+    <Button
+        android:id="@+id/botao_cadastrar_cartao"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight=".10"
+        android:text="@string/cadastrar_novo_cartao" />
+
+</LinearLayout>

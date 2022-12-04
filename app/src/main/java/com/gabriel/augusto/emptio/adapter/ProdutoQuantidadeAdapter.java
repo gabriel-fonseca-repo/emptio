@@ -19,8 +19,6 @@ import com.gabriel.augusto.emptio.entidades.Produto;
 import com.gabriel.augusto.emptio.entidades.Usuario;
 import com.gabriel.augusto.emptio.util.Util;
 
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -99,7 +97,7 @@ public class ProdutoQuantidadeAdapter extends ArrayAdapter<ProdutoQuantidade> {
 
                     if (itensEscolhidos.contains(prodQnt.getProduto().getId())) {
                         if (prodQnt.getQuantidade() > 0) {
-                            prodQnt.setQuantidade(-1);
+                            prodQnt.setQuantidade(prodQnt.getQuantidade() - 1);
                         }
                         if (prodQnt.getQuantidade() == 0) {
                             usuarioLogado.getSacola().removeIf(prodQnt1 -> prodQnt.getProduto().getId() == prodQnt1.getProduto().getId());

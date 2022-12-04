@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/bordas_tela"
+    tools:context=".CadastroFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingTop="150dp">
+
+        <EditText
+            android:id="@+id/cartao_cadastro_numero"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints="name"
+            android:hint="@string/numero_do_cartao_hint"
+            android:inputType="text"
+            android:maxLength="19" />
+
+        <EditText
+            android:id="@+id/cartao_cadastro_nome_cartao"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints="name"
+            android:hint="@string/nome_no_cartao_hint"
+            android:inputType="text" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/cartao_cadastro_data_expiracao"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".80"
+                android:autofillHints="password"
+                android:hint="@string/data_de_expiracao_hint"
+                android:inputType="date"
+                android:maxLength="5" />
+
+            <EditText
+                android:id="@+id/cartao_cadastro_cvc"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".20"
+                android:autofillHints="password"
+                android:hint="@string/cvc"
+                android:inputType="number"
+                android:maxLength="3" />
+        </LinearLayout>
+
+
+        <Button
+            android:id="@+id/botao_cadastro_cartao"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cadastrar_cartao" />
+    </LinearLayout>
+</ScrollView>
